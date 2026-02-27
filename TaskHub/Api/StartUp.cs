@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using Api.UseCases.Users;
 using Api.UseCases.Users.Interfaces;
 using Dal;
@@ -81,31 +80,6 @@ public sealed class Startup
         }
 
         app.UseRouting();
-
-        app.Use(async (content, next) =>
-        {
-            var stopwatch = new Stopwatch();
-
-            stopwatch.Start();
-
-            content.Response.OnStarting(() =>
-            {
-                stopwatch.Stop();
-
-                content.Response.Headers.Append("X-Response-time-Ms", stopwatch.ElapsedMilliseconds.ToString());
-
-                return Task.CompletedTask;
-            });
-
-            await next(); 
-        });
-
-        app.Use(async (content, next) =>
-        {
-            content.Response.Headers.Append("X-Student-Name", "Mannapov Kamil Aidarovich");
-            content.Response.Headers.Append("X-Student-Group", "RI-240946");
-            await next();
-        });
 
         app.UseEndpoints(endpoints =>
         {
