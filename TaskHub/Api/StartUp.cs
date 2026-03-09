@@ -1,4 +1,6 @@
 using System.Diagnostics;
+using Api.Services.Interfaces;
+using Api.Services;
 using Api.UseCases.Users;
 using Api.UseCases.Users.Interfaces;
 using Dal;
@@ -39,6 +41,13 @@ public sealed class Startup
         services.AddLogic();
         
         services.AddScoped<IManageUserUseCase, ManageUserUseCase>();
+
+        services.AddSingleton<ISingleton1, Singleton1>();
+        services.AddSingleton<ISingleton2, Singleton2>();
+        services.AddScoped<IScoped1, Scoped1>();
+        services.AddScoped<IScoped2, Scoped2>();
+        services.AddTransient<ITransient1, Transient1>();
+        services.AddTransient<ITransient2, Transient2>();
         
         services.AddCors(options =>
         {
